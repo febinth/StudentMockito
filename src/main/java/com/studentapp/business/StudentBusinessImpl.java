@@ -9,6 +9,7 @@ import com.studentapp.service.StudentService;
 public class StudentBusinessImpl {
 	
 	private StudentService studentService;
+	public List<Integer> studentIds = new ArrayList<Integer>();
 	
 	public StudentBusinessImpl(StudentService studentService) {
 		this.studentService=studentService;
@@ -44,12 +45,11 @@ public class StudentBusinessImpl {
 	    public void run() {
 	        try {
 	            Thread.sleep(1000);
-	            studentService.getIds();
+	            studentIds=studentService.getIds();
 	        } catch (InterruptedException e) {
 	        	e.printStackTrace();
 	        }
 	    }
-
 	};
 	
 	public String getSubject(String teacherName) {

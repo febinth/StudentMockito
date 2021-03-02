@@ -65,7 +65,6 @@ public class BusinessImplTest {
 		when(studentService.getIds()).thenAnswer(new Answer<List<Integer>>() {
 
 			public List<Integer> answer(InvocationOnMock invocation) throws Throwable {
-				Thread.sleep(1000);
 				List<Integer> studentIds = new ArrayList<Integer>();
 				for(Student student:students) {
 					studentIds.add(student.getStudentId());
@@ -75,6 +74,7 @@ public class BusinessImplTest {
 		});
 		new Thread(studentBusinessImpl.getStudentIds).start();
 		verify(studentService,timeout(2000)).getIds();
+		assertEquals(3, studentBusinessImpl.studentIds.size());
 	}
 	
 	@Test
@@ -135,17 +135,10 @@ public class BusinessImplTest {
 		studentSpy.setStudentId(5);
 		studentSpy.setSubject("arts");
 		students.add(studentSpy);
-<<<<<<< HEAD
 		
 		assertEquals(null, studentMock.getSubject());
 		assertEquals("arts", studentSpy.getSubject());
 		assertEquals(4, students.size());
-=======
->>>>>>> aa427eddf5704d2ad3a4974f6f954dc62bfad34c
-		
-		assertEquals(null, studentMock.getSubject());
-		assertEquals("arts", studentSpy.getSubject());
-		assertEquals(4, students.size());	
 	}
 
 
