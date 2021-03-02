@@ -28,6 +28,7 @@ public class StudentBusinessImpl {
 	}
 	
 	public List<Student> getArtsStudents(){
+		
 		List<Student> students = studentService.getStudents();
 		List<Student> artsStudents = new ArrayList<Student>();
 		
@@ -37,8 +38,19 @@ public class StudentBusinessImpl {
 			}
 		}
 		return artsStudents;
-		
 	}	
+	
+	public final Runnable getStudentIds = new Runnable() {
+	    public void run() {
+	        try {
+	            Thread.sleep(1000);
+	            studentService.getIds();
+	        } catch (InterruptedException e) {
+	        	e.printStackTrace();
+	        }
+	    }
+
+	};
 	
 	public String getSubject(String teacherName) {
 		String subject = studentService.getTeacherSubject(teacherName);

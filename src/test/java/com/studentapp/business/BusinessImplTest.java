@@ -53,11 +53,28 @@ public class BusinessImplTest {
 		
 		//Verify
 		verify(studentService).getStudents();
-		verify(studentService,timeout(100)).getStudents();
 		verify(studentService,atLeastOnce()).getStudents();
 		verify(studentService,atLeast(1)).getStudents();
-		verify(studentService,atMost(1)).getStudents();
+		verify(studentService,atMost(2)).getStudents();
 		assertEquals(2,scienceStudents.size());
+	}
+	
+	@Test
+	public void testTimeout() {
+		StudentBusinessImpl studentBusinessImpl = new StudentBusinessImpl(studentService);
+		when(studentService.getIds()).thenAnswer(new Answer<List<Integer>>() {
+
+			public List<Integer> answer(InvocationOnMock invocation) throws Throwable {
+				Thread.sleep(1000);
+				List<Integer> studentIds = new ArrayList<Integer>();
+				for(Student student:students) {
+					studentIds.add(student.getStudentId());
+				}
+				return studentIds;
+			}			
+		});
+		new Thread(studentBusinessImpl.getStudentIds).start();
+		verify(studentService,timeout(2000)).getIds();
 	}
 	
 	@Test
@@ -112,14 +129,16 @@ public class BusinessImplTest {
 //		listSpy.add("two");
 //		assertEquals(2, listSpy.size());
 		
-		studentSpy.setStudentId(5);
-		studentSpy.setSubject("arts");
-		
 		studentMock.setStudentId(6);
 		studentMock.setSubject("science");
 		
-		assertEquals("arts", studentSpy.getSubject());
+		studentSpy.setStudentId(5);
+		studentSpy.setSubject("arts");
+		students.add(studentSpy);
+		
 		assertEquals(null, studentMock.getSubject());
+		assertEquals("arts", studentSpy.getSubject());
+		assertEquals(4, students.size());
 		
 	}
 
