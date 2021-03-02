@@ -112,15 +112,16 @@ public class BusinessImplTest {
 //		listSpy.add("two");
 //		assertEquals(2, listSpy.size());
 		
-		studentSpy.setStudentId(5);
-		studentSpy.setSubject("arts");
-		
 		studentMock.setStudentId(6);
 		studentMock.setSubject("science");
 		
-		assertEquals("arts", studentSpy.getSubject());
-		assertEquals(null, studentMock.getSubject());
+		studentSpy.setStudentId(5);
+		studentSpy.setSubject("arts");
+		students.add(studentSpy);
 		
+		assertEquals(null, studentMock.getSubject());
+		assertEquals("arts", studentSpy.getSubject());
+		assertEquals(4, students.size());	
 	}
 
 
