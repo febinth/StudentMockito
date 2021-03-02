@@ -65,7 +65,6 @@ public class BusinessImplTest {
 		when(studentService.getIds()).thenAnswer(new Answer<List<Integer>>() {
 
 			public List<Integer> answer(InvocationOnMock invocation) throws Throwable {
-				Thread.sleep(1000);
 				List<Integer> studentIds = new ArrayList<Integer>();
 				for(Student student:students) {
 					studentIds.add(student.getStudentId());
