@@ -135,17 +135,10 @@ public class BusinessImplTest {
 		studentSpy.setStudentId(5);
 		studentSpy.setSubject("arts");
 		students.add(studentSpy);
-<<<<<<< HEAD
 		
 		assertEquals(null, studentMock.getSubject());
 		assertEquals("arts", studentSpy.getSubject());
 		assertEquals(4, students.size());
-=======
->>>>>>> aa427eddf5704d2ad3a4974f6f954dc62bfad34c
-		
-		assertEquals(null, studentMock.getSubject());
-		assertEquals("arts", studentSpy.getSubject());
-		assertEquals(4, students.size());	
 	}
 
 
